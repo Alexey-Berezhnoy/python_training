@@ -6,6 +6,7 @@ from selenium.webdriver.common.by import By
 class TestTestaddgroup():
     def setup_method(self, method):
         self.driver = webdriver.Firefox()
+        self.driver.implicitly_wait(30)
         self.vars = {}
 
     def teardown_method(self, method):
