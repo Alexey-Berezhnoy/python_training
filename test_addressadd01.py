@@ -15,6 +15,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 class TestAddressadd():
     def setup_method(self, method):
         self.driver = webdriver.Firefox()
+        self.driver.maximize_window()
         self.driver.implicitly_wait(30)
         self.vars = {}
 
@@ -34,10 +35,10 @@ class TestAddressadd():
         # Открытие страницы создания нового контакта.
         self.driver.find_element(By.LINK_TEXT, "add new").click()
 
-    def names(self, first_name="FIRST_NAME"):
+    def names(self):
         # Имена.
         self.driver.find_element(By.NAME, "firstname").click()
-        self.driver.find_element(By.NAME, "firstname").send_keys(first_name)
+        self.driver.find_element(By.NAME, "firstname").send_keys("FIRST_NAME")
         self.driver.find_element(By.NAME, "middlename").click()
         self.driver.find_element(By.NAME, "middlename").send_keys("MIDDLE_NAME")
         self.driver.find_element(By.NAME, "lastname").click()
