@@ -10,6 +10,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from contact import *
 
 
 class TestAddressadd():
@@ -35,50 +36,50 @@ class TestAddressadd():
         # Открытие страницы создания нового контакта.
         self.driver.find_element(By.LINK_TEXT, "add new").click()
 
-    def names(self, first_name, middle_name, last_name, nickname):
+    def names(self, names_obj):
         # Имена.
         self.driver.find_element(By.NAME, "firstname").click()
-        self.driver.find_element(By.NAME, "firstname").send_keys(first_name)
+        self.driver.find_element(By.NAME, "firstname").send_keys(names_obj.a)
         self.driver.find_element(By.NAME, "middlename").click()
-        self.driver.find_element(By.NAME, "middlename").send_keys(middle_name)
+        self.driver.find_element(By.NAME, "middlename").send_keys(names_obj.b)
         self.driver.find_element(By.NAME, "lastname").click()
-        self.driver.find_element(By.NAME, "lastname").send_keys(last_name)
+        self.driver.find_element(By.NAME, "lastname").send_keys(names_obj.c)
         self.driver.find_element(By.NAME, "nickname").click()
-        self.driver.find_element(By.NAME, "nickname").send_keys(nickname)
+        self.driver.find_element(By.NAME, "nickname").send_keys(names_obj.d)
 
-    def company_data(self, company_short_name, company_full_name, company_address):
+    def company_data(self, company_data_obj):
         # Работа.
         self.driver.find_element(By.NAME, "title").click()
-        self.driver.find_element(By.NAME, "title").send_keys(company_short_name)
+        self.driver.find_element(By.NAME, "title").send_keys(company_data_obj.a)
         self.driver.find_element(By.NAME, "company").click()
-        self.driver.find_element(By.NAME, "company").send_keys(company_full_name)
+        self.driver.find_element(By.NAME, "company").send_keys(company_data_obj.b)
         self.driver.find_element(By.NAME, "address").click()
-        self.driver.find_element(By.NAME, "address").send_keys(company_address)
+        self.driver.find_element(By.NAME, "address").send_keys(company_data_obj.c)
 
-    def phones(self, home_tel, mobile_tel, work_tel, fax):
+    def phones(self, phones_obj):
         # Телефоны.
         self.driver.find_element(By.NAME, "home").click()
-        self.driver.find_element(By.NAME, "home").send_keys(home_tel)
+        self.driver.find_element(By.NAME, "home").send_keys(phones_obj.a)
         self.driver.find_element(By.NAME, "mobile").click()
-        self.driver.find_element(By.NAME, "mobile").send_keys(mobile_tel)
+        self.driver.find_element(By.NAME, "mobile").send_keys(phones_obj.b)
         self.driver.find_element(By.NAME, "work").click()
-        self.driver.find_element(By.NAME, "work").send_keys(work_tel)
+        self.driver.find_element(By.NAME, "work").send_keys(phones_obj.c)
         self.driver.find_element(By.NAME, "fax").click()
-        self.driver.find_element(By.NAME, "fax").send_keys(fax)
+        self.driver.find_element(By.NAME, "fax").send_keys(phones_obj.d)
 
-    def mails(self, mail01, mail02, mail03):
+    def mails(self, mails_obj):
         # Электронные почты.
         self.driver.find_element(By.NAME, "email").click()
-        self.driver.find_element(By.NAME, "email").send_keys(mail01)
+        self.driver.find_element(By.NAME, "email").send_keys(mails_obj.a)
         self.driver.find_element(By.NAME, "email2").click()
-        self.driver.find_element(By.NAME, "email2").send_keys(mail02)
+        self.driver.find_element(By.NAME, "email2").send_keys(mails_obj.b)
         self.driver.find_element(By.NAME, "email3").click()
-        self.driver.find_element(By.NAME, "email3").send_keys(mail03)
+        self.driver.find_element(By.NAME, "email3").send_keys(mails_obj.c)
 
-    def homepage(self, homepage01):
+    def homepage(self, homepage_obj):
         # Урл домашней страницы.
         self.driver.find_element(By.NAME, "homepage").click()
-        self.driver.find_element(By.NAME, "homepage").send_keys(homepage01)
+        self.driver.find_element(By.NAME, "homepage").send_keys(homepage_obj.a)
 
     def dates(self):
         # Даты.
@@ -103,14 +104,14 @@ class TestAddressadd():
         self.driver.find_element(By.NAME, "ayear").click()
         self.driver.find_element(By.NAME, "ayear").send_keys("2020")
 
-    def more_info(self, additional_address01, additional_phone01, notes):
+    def more_info(self, more_info_obj):
         # Дополнительная информация.
         self.driver.find_element(By.NAME, "address2").click()
-        self.driver.find_element(By.NAME, "address2").send_keys(additional_address01)
+        self.driver.find_element(By.NAME, "address2").send_keys(more_info_obj.a)
         self.driver.find_element(By.NAME, "phone2").click()
-        self.driver.find_element(By.NAME, "phone2").send_keys(additional_phone01)
+        self.driver.find_element(By.NAME, "phone2").send_keys(more_info_obj.b)
         self.driver.find_element(By.NAME, "notes").click()
-        self.driver.find_element(By.NAME, "notes").send_keys(notes)
+        self.driver.find_element(By.NAME, "notes").send_keys(more_info_obj.c)
         self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(87)").click()
 
     def return_to_home_page(self):
@@ -125,15 +126,16 @@ class TestAddressadd():
         self.open_home_page()
         self.authorization(username="admin", password="secret")
         self.open_contact_creation_page()
-        self.names(first_name="FIRST_NAME", middle_name="MIDDLE_NAME", last_name="LAST_NAME", nickname="nickfield")
-        self.company_data(company_short_name="titrlfield", company_full_name="companyField",
-                          company_address="Нижний Новгород, пр. Ленина, 88")
-        self.phones(home_tel="home_tel", mobile_tel="mob_tel", work_tel="work_tel", fax="889090808058")
-        self.mails(mail01="mail1@mail.mail", mail02="mail2@mail.mail", mail03="mail3@mail.mail")
-        self.homepage(homepage01="homepage_url")
+        self.names(
+            NamesCl(first_name="FIRST_NAME", middle_name="MIDDLE_NAME", last_name="LAST_NAME", nickname="nickfield"))
+        self.company_data(CompanyDataCl(company_short_name="titrlfield", company_full_name="companyField",
+                                        company_address="Нижний Новгород, пр. Ленина, 88"))
+        self.phones(PhonesCl(home_tel="home_tel", mobile_tel="mob_tel", work_tel="work_tel", fax="889090808058"))
+        self.mails(MailsCl(mail01="mail1@mail.mail", mail02="mail2@mail.mail", mail03="mail3@mail.mail"))
+        self.homepage(HomepageCl(homepage01="homepage_url"))
         self.dates()
-        self.more_info(additional_address01="secondary_address", additional_phone01="secondary_home_field",
-                       notes="secondary_note_field")
+        self.more_info(MoreInfoCl(additional_address01="secondary_address", additional_phone01="secondary_home_field",
+                                  notes="secondary_note_field"))
         self.return_to_home_page()
         self.logout()
 
