@@ -10,80 +10,124 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
+
 class TestAddressadd():
-  def setup_method(self, method):
-    self.driver = webdriver.Firefox()
-    self.vars = {}
-  
-  def teardown_method(self, method):
-    self.driver.quit()
-  
-  def test_addressadd(self):
-    self.driver.get("http://localhost/addressbook/")
-    self.driver.find_element(By.NAME, "user").click()
-    self.driver.find_element(By.NAME, "user").send_keys("admin")
-    self.driver.find_element(By.NAME, "pass").click()
-    self.driver.find_element(By.NAME, "pass").send_keys("secret")
-    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(7)").click()
-    self.driver.find_element(By.LINK_TEXT, "add new").click()
-    self.driver.find_element(By.NAME, "firstname").click()
-    self.driver.find_element(By.NAME, "firstname").send_keys("FIRST_NAME")
-    self.driver.find_element(By.NAME, "middlename").click()
-    self.driver.find_element(By.NAME, "middlename").send_keys("MIDDLE_NAME")
-    self.driver.find_element(By.NAME, "lastname").click()
-    self.driver.find_element(By.NAME, "lastname").send_keys("LAST_NAME")
-    self.driver.find_element(By.NAME, "nickname").click()
-    self.driver.find_element(By.NAME, "nickname").send_keys("nickfield")
-    self.driver.find_element(By.NAME, "title").click()
-    self.driver.find_element(By.NAME, "title").send_keys("titrlfield")
-    self.driver.find_element(By.NAME, "company").click()
-    self.driver.find_element(By.NAME, "company").send_keys("companyField")
-    self.driver.find_element(By.NAME, "address").click()
-    self.driver.find_element(By.NAME, "address").click()
-    self.driver.find_element(By.NAME, "address").send_keys("Нижний Новгород, пр. Ленина, 88")
-    self.driver.find_element(By.NAME, "home").click()
-    self.driver.find_element(By.NAME, "home").send_keys("home_tel")
-    self.driver.find_element(By.NAME, "mobile").click()
-    self.driver.find_element(By.NAME, "mobile").send_keys("mob_tel")
-    self.driver.find_element(By.NAME, "work").click()
-    self.driver.find_element(By.NAME, "work").send_keys("work_tel")
-    self.driver.find_element(By.NAME, "fax").click()
-    self.driver.find_element(By.NAME, "fax").send_keys("889090808058")
-    self.driver.find_element(By.NAME, "email").click()
-    self.driver.find_element(By.NAME, "email").send_keys("mail1@mail.mail")
-    self.driver.find_element(By.NAME, "email2").click()
-    self.driver.find_element(By.NAME, "email2").send_keys("mail2@mail.mail")
-    self.driver.find_element(By.NAME, "email3").click()
-    self.driver.find_element(By.NAME, "email3").send_keys("mail3@mail.mail")
-    self.driver.find_element(By.NAME, "homepage").click()
-    self.driver.find_element(By.NAME, "homepage").send_keys("homepage_url")
-    self.driver.find_element(By.NAME, "bday").click()
-    dropdown = self.driver.find_element(By.NAME, "bday")
-    dropdown.find_element(By.XPATH, "//option[. = '1']").click()
-    self.driver.find_element(By.CSS_SELECTOR, "select:nth-child(61) > option:nth-child(3)").click()
-    self.driver.find_element(By.NAME, "bmonth").click()
-    dropdown = self.driver.find_element(By.NAME, "bmonth")
-    dropdown.find_element(By.XPATH, "//option[. = 'January']").click()
-    self.driver.find_element(By.CSS_SELECTOR, "select:nth-child(62) > option:nth-child(2)").click()
-    self.driver.find_element(By.NAME, "byear").click()
-    self.driver.find_element(By.NAME, "byear").send_keys("1970")
-    self.driver.find_element(By.NAME, "aday").click()
-    dropdown = self.driver.find_element(By.NAME, "aday")
-    dropdown.find_element(By.XPATH, "//option[. = '1']").click()
-    self.driver.find_element(By.CSS_SELECTOR, "select:nth-child(66) > option:nth-child(3)").click()
-    self.driver.find_element(By.NAME, "amonth").click()
-    dropdown = self.driver.find_element(By.NAME, "amonth")
-    dropdown.find_element(By.XPATH, "//option[. = 'January']").click()
-    self.driver.find_element(By.CSS_SELECTOR, "select:nth-child(67) > option:nth-child(2)").click()
-    self.driver.find_element(By.NAME, "ayear").click()
-    self.driver.find_element(By.NAME, "ayear").send_keys("2020")
-    self.driver.find_element(By.NAME, "address2").click()
-    self.driver.find_element(By.NAME, "address2").send_keys("secondary_address")
-    self.driver.find_element(By.NAME, "phone2").click()
-    self.driver.find_element(By.NAME, "phone2").send_keys("secondary_home_field")
-    self.driver.find_element(By.NAME, "notes").click()
-    self.driver.find_element(By.NAME, "notes").send_keys("secondary_note_field")
-    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(87)").click()
-    self.driver.find_element(By.LINK_TEXT, "home").click()
-    self.driver.find_element(By.LINK_TEXT, "Logout").click()
-  
+    def setup_method(self, method):
+        self.driver = webdriver.Firefox()
+        self.driver.implicitly_wait(30)
+        self.vars = {}
+
+    def open_home_page(self):
+        # Открытие страницы авторизации адресной книги.
+        self.driver.get("http://localhost/addressbook/")
+
+    def authorization(self):
+        # Авторизация.
+        self.driver.find_element(By.NAME, "user").click()
+        self.driver.find_element(By.NAME, "user").send_keys("admin")
+        self.driver.find_element(By.NAME, "pass").click()
+        self.driver.find_element(By.NAME, "pass").send_keys("secret")
+        self.driver.find_element(By.XPATH, "//input[@value=\'Login\']").click()
+
+    def open_contact_creation_page(self):
+        # Открытие страницы создания нового контакта.
+        self.driver.find_element(By.LINK_TEXT, "add new").click()
+
+    def names(self):
+        # Имена.
+        self.driver.find_element(By.NAME, "firstname").click()
+        self.driver.find_element(By.NAME, "firstname").send_keys("FIRST_NAME")
+        self.driver.find_element(By.NAME, "middlename").click()
+        self.driver.find_element(By.NAME, "middlename").send_keys("MIDDLE_NAME")
+        self.driver.find_element(By.NAME, "lastname").click()
+        self.driver.find_element(By.NAME, "lastname").send_keys("LAST_NAME")
+        self.driver.find_element(By.NAME, "nickname").click()
+        self.driver.find_element(By.NAME, "nickname").send_keys("nickfield")
+
+    def company_data(self):
+        # Работа.
+        self.driver.find_element(By.NAME, "title").click()
+        self.driver.find_element(By.NAME, "title").send_keys("titrlfield")
+        self.driver.find_element(By.NAME, "company").click()
+        self.driver.find_element(By.NAME, "company").send_keys("companyField")
+        self.driver.find_element(By.NAME, "address").click()
+        self.driver.find_element(By.NAME, "address").send_keys("Нижний Новгород, пр. Ленина, 88")
+
+    def phones(self):
+        # Телефоны.
+        self.driver.find_element(By.NAME, "home").click()
+        self.driver.find_element(By.NAME, "home").send_keys("home_tel")
+        self.driver.find_element(By.NAME, "mobile").click()
+        self.driver.find_element(By.NAME, "mobile").send_keys("mob_tel")
+        self.driver.find_element(By.NAME, "work").click()
+        self.driver.find_element(By.NAME, "work").send_keys("work_tel")
+        self.driver.find_element(By.NAME, "fax").click()
+        self.driver.find_element(By.NAME, "fax").send_keys("889090808058")
+
+    def mails(self):
+        # Электронные почты.
+        self.driver.find_element(By.NAME, "email").click()
+        self.driver.find_element(By.NAME, "email").send_keys("mail1@mail.mail")
+        self.driver.find_element(By.NAME, "email2").click()
+        self.driver.find_element(By.NAME, "email2").send_keys("mail2@mail.mail")
+        self.driver.find_element(By.NAME, "email3").click()
+        self.driver.find_element(By.NAME, "email3").send_keys("mail3@mail.mail")
+
+    def homepage(self):
+        # Урл домашней страницы.
+        self.driver.find_element(By.NAME, "homepage").click()
+        self.driver.find_element(By.NAME, "homepage").send_keys("homepage_url")
+
+    def dates(self):
+        # Даты.
+        self.driver.find_element(By.NAME, "bday").click()
+        dropdown = self.driver.find_element(By.NAME, "bday")
+        dropdown.find_element(By.XPATH, "//option[. = '1']").click()
+        self.driver.find_element(By.CSS_SELECTOR, "select:nth-child(61) > option:nth-child(3)").click()
+        self.driver.find_element(By.NAME, "bmonth").click()
+        dropdown = self.driver.find_element(By.NAME, "bmonth")
+        dropdown.find_element(By.XPATH, "//option[. = 'January']").click()
+        self.driver.find_element(By.CSS_SELECTOR, "select:nth-child(62) > option:nth-child(2)").click()
+        self.driver.find_element(By.NAME, "byear").click()
+        self.driver.find_element(By.NAME, "byear").send_keys("1970")
+        self.driver.find_element(By.NAME, "aday").click()
+        dropdown = self.driver.find_element(By.NAME, "aday")
+        dropdown.find_element(By.XPATH, "//option[. = '1']").click()
+        self.driver.find_element(By.CSS_SELECTOR, "select:nth-child(66) > option:nth-child(3)").click()
+        self.driver.find_element(By.NAME, "amonth").click()
+        dropdown = self.driver.find_element(By.NAME, "amonth")
+        dropdown.find_element(By.XPATH, "//option[. = 'January']").click()
+        self.driver.find_element(By.CSS_SELECTOR, "select:nth-child(67) > option:nth-child(2)").click()
+        self.driver.find_element(By.NAME, "ayear").click()
+        self.driver.find_element(By.NAME, "ayear").send_keys("2020")
+
+    def more_info(self):
+        # Дополнительная информация.
+        self.driver.find_element(By.NAME, "address2").click()
+        self.driver.find_element(By.NAME, "address2").send_keys("secondary_address")
+        self.driver.find_element(By.NAME, "phone2").click()
+        self.driver.find_element(By.NAME, "phone2").send_keys("secondary_home_field")
+        self.driver.find_element(By.NAME, "notes").click()
+        self.driver.find_element(By.NAME, "notes").send_keys("secondary_note_field")
+        self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(87)").click()
+        self.driver.find_element(By.LINK_TEXT, "home").click()
+
+    def logout(self):
+        # Логаут.
+        self.driver.find_element(By.LINK_TEXT, "Logout").click()
+
+    def test_addressadd(self):
+        self.open_home_page()
+        self.authorization()
+        self.open_contact_creation_page()
+        self.names()
+        self.company_data()
+        self.phones()
+        self.mails()
+        self.homepage()
+        self.dates()
+        self.more_info()
+        self.logout()
+
+    def teardown_method(self, method):
+        self.driver.quit()
