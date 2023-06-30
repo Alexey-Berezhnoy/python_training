@@ -4,6 +4,7 @@ class Application:
 
     def __init__(self):
         self.driver = webdriver.Firefox()
+        self.driver.maximize_window()
         self.driver.implicitly_wait(30)
 
     def open_home_page(self):
