@@ -8,7 +8,6 @@ class TestTestaddgroup():
     def setup_method(self, method):
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
-        self.vars = {}
 
     def open_home_page(self):
         # Открытие домашней страницы адресной книги.
