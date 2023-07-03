@@ -14,13 +14,13 @@ def app(request):
 
 # Метод принимает в качестве параметра фикстуру.
 def test_testaddgroup(app):
-    app.login(username="admin", password="secret")
+    app.session.login(username="admin", password="secret")
     app.create_group(Group(name="Name_group01", header="group_header01", footer="group_footer01"))
-    app.logout()
+    app.session.logout()
 
 
 # Метод принимает в качестве параметра фикстуру.
 def test_testaddemptygroup(app):
-    app.login(username="admin", password="secret")
+    app.session.login(username="admin", password="secret")
     app.create_group(Group(name="", header="", footer=""))
-    app.logout()
+    app.session.logout()
