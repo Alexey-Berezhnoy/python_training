@@ -20,4 +20,5 @@ class Application:
 
 
     def destroy(self):
-        self.driver.quit()
+        wd = self.driver
+        wd.quit()
