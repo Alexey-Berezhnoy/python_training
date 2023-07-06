@@ -26,6 +26,15 @@ class GroupHelper:
         self.app.driver.find_element(By.NAME, "submit").click()
         self.return_to_groups_page()
 
+    def delete_first_group(self):
+        wd = self.app.driver
+        self.open_groups_page()
+        # Выбрать первую группу
+        wd.find_element(By.NAME, "selected[]").click()
+        # Удалить группу
+        wd.find_element(By.NAME, "delete").click()
+        self.return_to_groups_page()
+
     def return_to_groups_page(self):
         wd = self.app.driver
         # Возврат к странице с группами.

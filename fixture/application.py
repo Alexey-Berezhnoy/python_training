@@ -2,6 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from fixture.session import SessionHelper
 from fixture.group import GroupHelper
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class Application:
@@ -17,7 +19,6 @@ class Application:
         wd = self.driver
         # Открытие домашней страницы адресной книги.
         wd.get("http://localhost/addressbook/")
-
 
     def destroy(self):
         wd = self.driver
